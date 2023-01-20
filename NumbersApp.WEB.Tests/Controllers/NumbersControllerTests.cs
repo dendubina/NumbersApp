@@ -46,6 +46,19 @@ public class NumbersControllerTests
     }
 
     [Fact]
+    public async Task IsThisAPrimeNumber_Should_Look_For_Number_In_Repository()
+    {
+        //Arrange
+        var number = new Random().Next();
+
+        //Act
+        await _numbersController.IsThisAPrimeNumber(number);
+
+        //Assert
+        _numbersRepositoryMock.Verify(x => x.GetByValueAsync(number), Times.Once);
+    }
+
+    [Fact]
     public async Task IsThisAPrimeNumber_Should_Create_New_When_Number_Not_Found()
     {
         //Arrange
